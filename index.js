@@ -45,10 +45,30 @@ function translate(text, opts) {
             q: text
         };
         data[token.name] = token.value;
-
-        return url + '?' + querystring.stringify(data);
-    }).then(function (url) {
-        return got(url, {headers: {'user-agent': 'Mozilla/5.0'}}).then(function (res) {
+        var headers = {
+            headers: {'user-agent': 'Mozilla/5.0'}
+        };
+        var fullUrl = url + '?' + querystring.stringify(data);
+        if (fullUrl.length > 2083) {
+            delete data.q;
+            fullUrl = url + '?' + querystring.stringify(data);
+            return [
+                fullUrl,
+                {
+                    method: 'POST', 
+                    body: {q: text}, 
+                    headers: headers
+                }
+            ];
+        }
+        return [
+            fullUrl,
+            {
+                headers: headers
+            }
+        ];
+    }).then(function (gotParams) {
+        return got.apply(got, gotParams).then(function (res) {
             var result = {
                 text: '',
                 pronunciation: '',
