@@ -123,14 +123,13 @@ function translate(text, opts) {
 
             return result;
         }).catch(function (err) {
-            var e;
-            e = new Error();
+            err.message += `\nUrl: ${url}`;
             if (err.statusCode !== undefined && err.statusCode !== 200) {
-                e.code = 'BAD_REQUEST';
+                err.code = 'BAD_REQUEST';
             } else {
-                e.code = 'BAD_NETWORK';
+                err.code = 'BAD_NETWORK';
             }
-            throw e;
+            throw err;
         });
     });
 }
