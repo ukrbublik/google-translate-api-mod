@@ -55,8 +55,8 @@ function translate(text, opts) {
             return [
                 fullUrl,
                 {
-                    method: 'POST', 
-                    body: {q: text}, 
+                    method: 'POST',
+                    body: {q: text},
                     headers: headers
                 }
             ];

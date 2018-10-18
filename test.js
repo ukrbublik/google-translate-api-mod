@@ -68,7 +68,7 @@ test('translate some misspelled english text to dutch', async t => {
     }
 });
 
-test.todo('try to translate some text without an internet connection');
+// test.todo('try to translate some text without an internet connection');
 
 test('translate some text and get the raw output alongside', async t => {
     try {
