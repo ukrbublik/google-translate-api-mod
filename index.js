@@ -123,7 +123,6 @@ function translate(text, opts) {
 
             return result;
         }).catch(function (err) {
-            err.message += `\nUrl: ${url}`;
             if (err.statusCode !== undefined && err.statusCode !== 200) {
                 err.code = 'BAD_REQUEST';
             } else {
